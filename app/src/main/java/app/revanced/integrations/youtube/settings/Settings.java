@@ -33,6 +33,7 @@ import app.revanced.integrations.youtube.patches.alternativethumbnails.Alternati
 import app.revanced.integrations.youtube.patches.alternativethumbnails.AlternativeThumbnailsPatch.ThumbnailStillTime;
 import app.revanced.integrations.youtube.patches.misc.requests.PlayerRoutes.ClientType;
 import app.revanced.integrations.youtube.patches.shorts.AnimationFeedbackPatch.AnimationType;
+import app.revanced.integrations.youtube.patches.video.georestrictions.LocationsIP;
 import app.revanced.integrations.youtube.sponsorblock.SponsorBlockSettings;
 
 @SuppressWarnings("unused")
@@ -426,6 +427,8 @@ public class Settings extends BaseSettings {
 
 
     // PreferenceScreen: Video
+    public static final BooleanSetting ENABLE_GEO_RESTRICTION_BYPASS = new BooleanSetting("revanced_geo_restrictions", FALSE, false);
+    public static final EnumSetting<LocationsIP> LOCATIONS_IP = new EnumSetting<>("revanced_geo_locations", LocationsIP.VN, false, parent(ENABLE_GEO_RESTRICTION_BYPASS));
     public static final FloatSetting DEFAULT_PLAYBACK_SPEED = new FloatSetting("revanced_default_playback_speed", -2.0f);
     public static final IntegerSetting DEFAULT_VIDEO_QUALITY_MOBILE = new IntegerSetting("revanced_default_video_quality_mobile", -2);
     public static final IntegerSetting DEFAULT_VIDEO_QUALITY_WIFI = new IntegerSetting("revanced_default_video_quality_wifi", -2);
