@@ -160,8 +160,8 @@ public class ShortsPatch {
         }
     }
 
-    public static void addShortsToolBarButton(View view) {
-        view.setVisibility(View.GONE);
+    public static void addShortsToolBarButton(ViewGroup viewGroup) {
+        viewGroup.setVisibility(View.GONE);
         Logger.printInfo(() -> "ShortsToolBarButton hooked");
     }
 
