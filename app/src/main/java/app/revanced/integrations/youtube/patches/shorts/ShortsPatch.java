@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
+import app.revanced.integrations.shared.utils.Logger;
 import app.revanced.integrations.shared.utils.ResourceUtils;
 import app.revanced.integrations.shared.utils.Utils;
 import app.revanced.integrations.youtube.settings.Settings;
@@ -157,6 +158,11 @@ public class ShortsPatch {
         if (pivotBarView != null) {
             hideViewUnderCondition(Settings.HIDE_SHORTS_NAVIGATION_BAR.get(), pivotBarView);
         }
+    }
+
+    public static void addShortsToolBarButton(View view) {
+        view.setVisibility(View.GONE);
+        Logger.printInfo(() -> "ShortsToolBarButton hooked");
     }
 
 }
