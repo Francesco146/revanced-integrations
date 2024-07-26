@@ -1,21 +1,23 @@
 package app.revanced.integrations.youtube.patches.shorts;
 
-import static app.revanced.integrations.shared.utils.Utils.hideViewUnderCondition;
-import static app.revanced.integrations.youtube.utils.ExtendedUtils.validateValue;
-
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.lang.ref.WeakReference;
-
 import app.revanced.integrations.shared.utils.Logger;
 import app.revanced.integrations.shared.utils.ResourceUtils;
 import app.revanced.integrations.shared.utils.Utils;
 import app.revanced.integrations.youtube.settings.Settings;
+import app.revanced.integrations.youtube.utils.ThemeUtils;
 import app.revanced.integrations.youtube.utils.VideoUtils;
+
+import java.lang.ref.WeakReference;
+
+import static app.revanced.integrations.shared.utils.Utils.hideViewUnderCondition;
+import static app.revanced.integrations.youtube.utils.ExtendedUtils.validateValue;
 
 @SuppressWarnings("unused")
 public class ShortsPatch {
@@ -160,9 +162,18 @@ public class ShortsPatch {
         }
     }
 
-    public static void addShortsToolBarButton(ViewGroup viewGroup) {
-        viewGroup.setVisibility(View.GONE);
-        Logger.printInfo(() -> "ShortsToolBarButton hooked");
+    public static ViewGroup addShortsToolBarButton(ViewGroup viewGroup) {
+        viewGroup.setVisibility(View.VISIBLE);
+
+        Drawable deleteIcon = ThemeUtils.getTrashButtonDrawable();
+
+        ImageButton testBtn = new ImageButton(viewGroup.getContext());
+        testBtn.setImageDrawable(deleteIcon);
+        testBtn.setBackground(null);
+        viewGroup.addView(testBtn);
+        Logger.printInfo(() -> "ShortsToolBarButton hooked " + viewGroup);
+
+        return viewGroup;
     }
 
 }
