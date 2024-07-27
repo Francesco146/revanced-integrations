@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import app.revanced.integrations.shared.utils.Logger;
@@ -17,6 +19,7 @@ import app.revanced.integrations.youtube.utils.VideoUtils;
 import java.lang.ref.WeakReference;
 
 import static app.revanced.integrations.shared.utils.StringRef.str;
+import static app.revanced.integrations.shared.utils.Utils.getContext;
 import static app.revanced.integrations.shared.utils.Utils.hideViewUnderCondition;
 import static app.revanced.integrations.youtube.utils.ExtendedUtils.validateValue;
 
@@ -164,17 +167,15 @@ public class ShortsPatch {
     }
 
     public static View addShortsToolBarButton(View view) {
-        Logger.printInfo(() -> "ShortsToolBarButton hooked " + view.toString());
+        if (view == null)
+            return null;
 
+        Logger.printInfo(() -> "ShortsToolBarButton hooked " + view);
+
+        view.setVisibility(View.VISIBLE);
+        view.setClickable(true);
         view.setOnClickListener(
                 v -> Logger.printInfo(() -> "ShortsToolBarButton clicked")
-        );
-
-        view.setOnLongClickListener(
-                v -> {
-                    Logger.printInfo(() -> "ShortsToolBarButton long clicked");
-                    return true;
-                }
         );
 
         return view;
