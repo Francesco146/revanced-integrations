@@ -9,10 +9,7 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
@@ -141,6 +138,19 @@ public class StreamingDataRequest {
             byte[] requestBody = innerTubeBody.getBytes(StandardCharsets.UTF_8);
             connection.setFixedLengthStreamingMode(requestBody.length);
             connection.getOutputStream().write(requestBody);
+
+            Logger.printInfo(() -> {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder responseContent = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        responseContent.append(line);
+                    }
+                    return "[StreamingDataRequest] " + responseContent;
+                } catch (IOException e) {
+                    return "[StreamingDataRequest] Failed to parse response: " + e.getMessage();
+                }
+            });
 
             final int responseCode = connection.getResponseCode();
             if (responseCode == 200) return connection;
